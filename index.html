@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>20 Game Edukasi</title>
+<style>
+:root{--bg:#f6f7fb;--c:#fff;--t:#1d2433;--m:#667085;--a:#4f46e5;--ok:#16a34a;--no:#dc2626;--b:#dfe3ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--c:#1c2030;--t:#eef0f7;--m:#9aa3b5;--a:#818cf8;--b:#2c3247}}
+:root[data-theme="dark"]{--bg:#12141c;--c:#1c2030;--t:#eef0f7;--m:#9aa3b5;--a:#818cf8;--b:#2c3247}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--t);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+#app{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.5rem 0}.m{color:var(--m)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+button{font:inherit;color:inherit;cursor:pointer}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.card:hover{border-color:var(--a)}.card span{color:var(--m);font-size:.88rem}.card em{font-size:.8rem;color:var(--a);font-style:normal}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px;font-size:.9rem;color:var(--m)}
+.back,.btn{background:var(--c);border:1px solid var(--b);border-radius:8px;padding:6px 12px}
+.btn{background:var(--a);color:#fff;border-color:var(--a);margin:4px}
+.q{font-size:1.25rem;font-weight:600;margin:10px 0 16px}
+.opts{display:grid;gap:8px}.opt{background:var(--c);border:1px solid var(--b);border-radius:10px;padding:12px;text-align:left}
+.opt:hover{border-color:var(--a)}.ok{background:var(--ok)!important;color:#fff;border-color:var(--ok)}.no{background:var(--no)!important;color:#fff;border-color:var(--no)}
+input{font:inherit;padding:10px;border-radius:8px;border:1px solid var(--b);background:var(--c);color:var(--t);width:min(260px,60%)}
+.fb{margin-top:12px;font-weight:600}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mg .opt{min-height:64px;text-align:center}
+.end{text-align:center;padding:30px 0}.end b{font-size:1.4rem}
+</style></head><body><div id="app"></div>
+<script>
+const G=[
+["Kuis Kilat Matematika","Pilih hasil hitungan yang benar.","mc",[["7 × 8 = ?",["54","56","64","48"],1],["144 ÷ 12 = ?",["11","12","14","13"],1],["15 + 27 = ?",["42","41","43","52"],0],["9² = ?",["18","72","81","99"],2],["100 − 38 = ?",["72","62","58","68"],1]]],
+["Tebak Ibu Kota","Pilih ibu kota negara yang tepat.","mc",[["Jepang",["Osaka","Tokyo","Kyoto","Seoul"],1],["Australia",["Sydney","Melbourne","Canberra","Perth"],2],["Prancis",["Paris","Lyon","Nice","Roma"],0],["Thailand",["Phuket","Hanoi","Manila","Bangkok"],3],["Mesir",["Kairo","Giza","Dubai","Tunis"],0]]],
+["Benar atau Salah: Sains","Tentukan pernyataan sains benar atau salah.","tf",[["Air mendidih pada 100°C di permukaan laut.",true],["Matahari adalah sebuah planet.",false],["Paus termasuk mamalia.",true],["Suara dapat merambat di ruang hampa.",false],["Daun berwarna hijau karena klorofil.",true]]],
+["Ketik Perkalian","Ketik hasil perkaliannya.","type",[["6 × 7 = ?","42"],["8 × 9 = ?","72"],["12 × 5 = ?","60"],["11 × 11 = ?","121"],["9 × 4 = ?","36"]]],
+["Memori Hewan & Habitat","Cocokkan hewan dengan tempat hidupnya.","match",[["🐟 Ikan","Air"],["🐪 Unta","Gurun"],["🐧 Penguin","Kutub"],["🐒 Monyet","Hutan"],["🐄 Sapi","Padang rumput"],["🦅 Elang","Langit"]]],
+["Urutkan Planet","Klik berurutan sesuai instruksi.","order",["Urutkan planet dari yang terdekat ke Matahari",["Merkurius","Venus","Bumi","Mars","Jupiter"]]],
+["Sinonim","Pilih persamaan kata.","mc",[["Sinonim \"cerdas\"",["pandai","malas","lambat","bodoh"],0],["Sinonim \"indah\"",["jelek","cantik","kotor","kasar"],1],["Sinonim \"besar\"",["kecil","pendek","raya","sempit"],2],["Sinonim \"cepat\"",["lekas","lamban","pelan","diam"],0],["Sinonim \"rajin\"",["malas","tekun","santai","lalai"],1]]],
+["English Kilat","Pilih arti kata bahasa Inggris.","mc",[["Book",["Buku","Pena","Meja","Kursi"],0],["Apple",["Jeruk","Pisang","Apel","Mangga"],2],["Window",["Pintu","Atap","Lantai","Jendela"],3],["Teacher",["Murid","Guru","Dokter","Polisi"],1],["Happy",["Sedih","Marah","Lapar","Senang"],3]]],
+["Jago Pecahan","Selesaikan soal pecahan.","mc",[["1/2 + 1/4 = ?",["3/4","2/6","1/6","1/8"],0],["Pecahan terbesar?",["1/8","1/3","1/2","1/4"],2],["3/4 dari 20 = ?",["12","15","16","5"],1],["1/2 sama dengan ... %",["25%","50%","75%","12%"],1],["2/3 − 1/3 = ?",["1/3","2/3","1","0"],0]]],
+["Pancasila","Kenali sila dan lambangnya.","mc",[["Sila ke-1",["Persatuan Indonesia","Ketuhanan Yang Maha Esa","Kerakyatan","Keadilan Sosial"],1],["Lambang sila ke-3",["Rantai","Bintang","Pohon Beringin","Padi dan Kapas"],2],["Lambang sila ke-2",["Rantai","Bintang","Banteng","Beringin"],0],["Lambang sila ke-4",["Padi dan Kapas","Kepala Banteng","Bintang","Rantai"],1],["Lambang sila ke-5",["Padi dan Kapas","Banteng","Beringin","Bintang"],0]]],
+["Lawan Kata","Ketik lawan katanya.","type",[["Lawan kata \"tinggi\"","rendah"],["Lawan kata \"panas\"","dingin"],["Lawan kata \"besar\"","kecil"],["Lawan kata \"siang\"","malam"],["Lawan kata \"baik\"","buruk"]]],
+["Memori Negara & Ibu Kota","Cocokkan negara dengan ibu kotanya.","match",[["Indonesia","Jakarta"],["Jepang","Tokyo"],["Malaysia","Kuala Lumpur"],["Thailand","Bangkok"],["Filipina","Manila"],["Vietnam","Hanoi"]]],
+["Urutkan Siklus Air","Klik berurutan sesuai instruksi.","order",["Urutkan tahapan siklus air",["Penguapan","Kondensasi","Pembentukan awan","Hujan","Air mengalir ke laut"]]],
+["Benar atau Salah: Sejarah","Uji pengetahuan sejarah Indonesia.","tf",[["Indonesia merdeka pada 17 Agustus 1945.",true],["Presiden pertama RI adalah Soeharto.",false],["Sumpah Pemuda terjadi tahun 1928.",true],["Proklamasi dibacakan di Bandung.",false],["Candi Borobudur ada di Jawa Tengah.",true]]],
+["Simbol Unsur Kimia","Ketik simbol kimianya.","type",[["Oksigen","O"],["Emas","Au"],["Natrium","Na"],["Besi","Fe"],["Hidrogen","H"]]],
+["Geografi Indonesia","Jelajahi peta Indonesia.","mc",[["Jakarta ada di pulau?",["Sumatra","Jawa","Kalimantan","Sulawesi"],1],["Gunung Bromo di provinsi?",["Jawa Barat","Bali","Jawa Timur","NTT"],2],["Danau Toba di provinsi?",["Sumatra Utara","Aceh","Riau","Jambi"],0],["Ibu kota Jawa Barat?",["Bogor","Bandung","Cirebon","Bekasi"],1],["Selat antara Jawa & Sumatra?",["Selat Bali","Selat Sunda","Selat Makassar","Selat Malaka"],1]]],
+["Memori English–Indonesia","Cocokkan kata Inggris dengan artinya.","match",[["Cat","Kucing"],["Dog","Anjing"],["Water","Air"],["Fire","Api"],["Moon","Bulan"],["Sun","Matahari"]]],
+["Urutkan Bilangan","Klik berurutan sesuai instruksi.","order",["Urutkan dari yang terkecil",["-3","-1","0","2","5"]]],
+["Tubuh Manusia","Kenali organ dan fungsinya.","mc",[["Organ pemompa darah",["Paru-paru","Jantung","Hati","Ginjal"],1],["Alat pernapasan utama",["Paru-paru","Lambung","Usus","Otak"],0],["Jumlah gigi orang dewasa",["20","28","32","36"],2],["Organ penyaring darah menjadi urine",["Hati","Limpa","Ginjal","Jantung"],2],["Indera penglihatan",["Telinga","Mata","Hidung","Lidah"],1]]],
+["Hitung Cepat","Ketik hasil hitungan secepatnya.","type",[["25 + 38 = ?","63"],["99 − 47 = ?","52"],["14 × 3 = ?","42"],["81 ÷ 9 = ?","9"],["56 + 44 = ?","100"]]]
+];
+const app=document.getElementById('app'),best={},sh=a=>[...a].sort(()=>Math.random()-.5);
+let g,i,sc,lock,cards,open,found,moves,items,nx,err;
+function menu(){app.innerHTML='<h1>🎓 20 Game Edukasi</h1><p class="m">Pilih game. Deskripsi cara main ada di setiap kartu.</p><div class="grid">'+G.map((x,n)=>`<button class="card" onclick="start(${n})"><b>${n+1}. ${x[0]}</b><span>${x[1]}</span><em>${best[n]||'Belum dimainkan'}</em></button>`).join('')+'</div>'}
+function head(extra){return `<div class="bar"><button class="back" onclick="menu()">← Menu</button><span>${G[g][0]} · ${extra}</span></div>`}
+function start(n){g=n;i=0;sc=0;lock=0;const ty=G[n][2],d=G[n][3];
+if(ty=='match'){cards=sh(d.flatMap((p,k)=>[[k,p[0]],[k,p[1]]]));open=[];found=new Set();moves=0;mr()}
+else if(ty=='order'){items=sh(d[1]);nx=0;err=0;or()}
+else q()}
+function q(){const [name,,ty,d]=G[g];if(i>=d.length)return end(`Skor ${sc}/${d.length}`);const x=d[i];lock=0;
+let b=head(`${i+1}/${d.length} · Skor ${sc}`)+`<div class="q">${x[0]}</div>`;
+if(ty=='mc')b+='<div class="opts">'+x[1].map((o,k)=>`<button class="opt" onclick="ans(${k},this)">${o}</button>`).join('')+'</div>';
+if(ty=='tf')b+='<div class="opts"><button class="opt" onclick="ans(true,this)">✔ Benar</button><button class="opt" onclick="ans(false,this)">✘ Salah</button></div>';
+if(ty=='type')b+='<input id="in" autocomplete="off" placeholder="Jawabanmu"> <button class="btn" onclick="ans(document.getElementById(\'in\').value,this)">Cek</button>';
+app.innerHTML=b+'<div class="fb" id="fb"></div>';const inp=document.getElementById('in');if(inp){inp.focus();inp.onkeydown=e=>{if(e.key=='Enter')ans(inp.value,inp)}}}
+function ans(v,el){if(lock)return;const ty=G[g][2],x=G[g][3][i];
+const ok=ty=='type'?String(v).trim().toLowerCase()==x[1].toLowerCase():v===(ty=='mc'?x[2]:x[1]);
+if(ty=='type'&&!String(v).trim())return;lock=1;if(ok)sc++;
+if(ty!='type')el.classList.add(ok?'ok':'no');
+const r=ty=='mc'?x[1][x[2]]:ty=='tf'?(x[1]?'Benar':'Salah'):x[1];
+document.getElementById('fb').textContent=ok?'✅ Benar!':'❌ Jawaban yang tepat: '+r;
+setTimeout(()=>{i++;q()},ok?700:1400)}
+function mr(){app.innerHTML=head(`Langkah ${moves}`)+'<div class="mg">'+cards.map((c,k)=>{const s=found.has(k);return `<button class="opt ${s?'ok':''}" onclick="flip(${k})">${s||open.includes(k)?c[1]:'❓'}</button>`}).join('')+'</div>'}
+function flip(k){if(lock||open.includes(k)||found.has(k))return;open.push(k);mr();
+if(open.length==2){moves++;const[a,b]=open;if(cards[a][0]==cards[b][0]){found.add(a);found.add(b);open=[];mr();if(found.size==cards.length)setTimeout(()=>end(`Selesai dalam ${moves} langkah`),500)}
+else{lock=1;setTimeout(()=>{open=[];lock=0;mr()},800)}}}
+function or(){const d=G[g][3];app.innerHTML=head(`Salah ${err}x`)+`<div class="q">${d[0]}</div><div class="opts">`+items.map(t=>{const p=d[1].indexOf(t);return `<button class="opt ${p<nx?'ok':''}" onclick="pick('${t}')">${p<nx?(p+1)+'. ':''}${t}</button>`}).join('')+'</div>'}
+function pick(t){const d=G[g][3][1];if(d.indexOf(t)<nx)return;if(t==d[nx]){nx++;or();if(nx==d.length)setTimeout(()=>end(`Selesai, salah ${err}x`),500)}else{err++;or()}}
+function end(msg){best[g]=msg;app.innerHTML=head('Selesai')+`<div class="end"><div>🎉</div><b>${msg}</b><p><button class="btn" onclick="start(${g})">Main lagi</button><button class="btn" onclick="menu()">Pilih game lain</button></p></div>`}
+menu();
+</script></body></html>
